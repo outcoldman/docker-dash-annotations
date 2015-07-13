@@ -1,0 +1,23 @@
+vmysql:
+  image: busybox
+  volumes:
+    - /var/lib/mysql
+
+mysql:
+  image: mysql:5.6
+  volumes_from:
+    - vmysql
+  environment:
+    - MYSQL_ROOT_PASSWORD=Password
+    - MYSQL_DATABASE=annotations
+    - MYSQL_USER=dash
+    - MYSQL_PASSWORD=Password
+
+annotations:
+  build: .
+  links:
+    - mysql:mysql
+  environment:
+    - GITHUB_TOKEN=YOUR_GITHUB_TOKEN
+    - APP_KEY=xlhF31NeOlibJcoOW9tvZg7TkHcAZI3a
+
